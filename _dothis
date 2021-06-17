@@ -1,0 +1,40 @@
+#_arguments '-f[input file]:filename: _files'\
+#           '-n[nombre de la persona]: _args'\
+#           '-a[apelldio de la persona]: _args'
+
+#_arguments "1: :(Mundo)"\
+#    "2:Paises:(Francia Alemania Italia)" \
+#    "3:Ciudades:(Roma Paris Berlin)"
+
+
+#compdef padrino
+
+function _dothis {
+    local line
+
+    _arguments -C \
+        "-h[Show help information]" \
+        "--h[Show help information]" \
+        "1: :(quietly loudly)" \
+        "*::arg:->args"
+
+    case $line[1] in
+        loudly)
+            _hello_loudly
+        ;;
+        quietly)
+            _hello_quietly
+        ;;
+    esac
+}
+
+function _hello_quietly {
+    _arguments \
+        "--silent[Dont output anything]:filename:_files"
+}
+
+function _hello_loudly {
+    _arguments \
+        "--repeat=[Repat the <message> any number of times]"
+}
+
